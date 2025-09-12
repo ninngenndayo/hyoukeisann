@@ -1,0 +1,35 @@
+.tabs 
+{ 
+    display:flex; 
+    gap:6px; 
+    margin-bottom:10px; 
+}
+
+[role="tab"]
+{
+    padding:8px 12px; 
+    border:1px solid #bbb; 
+    background:#fafafa; 
+    cursor:pointer; 
+    border-radius:6px;
+}
+
+[role="tab"][aria-selected="true"]
+{
+    background:#222;
+    color:#fff;
+    border-color:#222; 
+}
+
+[role="tabpanel"]
+{ 
+    border:1px solid #eee; 
+    padding:12px; 
+    border-radius:6px; 
+    display:none; 
+}
+
+[role="tabpanel"].active
+{ 
+    display:block; 
+}

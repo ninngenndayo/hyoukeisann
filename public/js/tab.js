@@ -1,29 +1,3 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>アクセシブルタブ</title>
-<style>
-  .tabs { display:flex; gap:6px; margin-bottom:10px; }
-  [role="tab"]{ padding:8px 12px; border:1px solid #bbb; background:#fafafa; cursor:pointer; border-radius:6px;}
-  [role="tab"][aria-selected="true"]{ background:#222;color:#fff;border-color:#222; }
-  [role="tabpanel"]{ border:1px solid #eee; padding:12px; border-radius:6px; display:none; }
-  [role="tabpanel"].active{ display:block; }
-</style>
-</head>
-<body>
-  <div class="tabs" role="tablist" aria-label="製品情報">
-    <button id="tab-1" role="tab" aria-selected="true" aria-controls="panel-1">概要</button>
-    <button id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2">使い方</button>
-    <button id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3">サポート</button>
-  </div>
-
-  <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" class="active">概要のテキスト。</section>
-  <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>使い方の説明。</section>
-  <section id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>サポート情報。</section>
-
-<script>
 (function(){
   const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
   const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
@@ -81,6 +55,3 @@
     t.tabIndex = (t.getAttribute('aria-selected') === 'true') ? 0 : -1;
   });
 })();
-</script>
-</body>
-</html>
