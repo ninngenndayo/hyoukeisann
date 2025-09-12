@@ -1,28 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>ページのタイトル</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>アクセシブルタブ</title>
+<style>
+  .tabs { display:flex; gap:6px; margin-bottom:10px; }
+  [role="tab"]{ padding:8px 12px; border:1px solid #bbb; background:#fafafa; cursor:pointer; border-radius:6px;}
+  [role="tab"][aria-selected="true"]{ background:#222;color:#fff;border-color:#222; }
+  [role="tabpanel"]{ border:1px solid #eee; padding:12px; border-radius:6px; display:none; }
+  [role="tabpanel"].active{ display:block; }
+</style>
 </head>
 <body>
-<header>
-    <h1>ウェブサイトのタイトル</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">ホーム</a></li>
-            <li><a href="about.html">私たちについて</a></li>
-            <li><a href="services.html">サービス</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
-        </ul>
-    </nav>
-</header>
-<!-- ページのメインコンテンツ -->
-<main>
-    <!-- コンテンツ -->
-</main>
-<!-- ページのフッター -->
-<footer>
-    <!-- フッター情報 -->
-</footer>
+  <div class="tabs" role="tablist" aria-label="製品情報">
+    <button id="tab-1" role="tab" aria-selected="true" aria-controls="panel-1">概要</button>
+    <button id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2">使い方</button>
+    <button id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3">サポート</button>
+  </div>
+
+  <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" class="active">概要のテキスト。</section>
+  <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>使い方の説明。</section>
+  <section id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>サポート情報。</section>
+
+<script>
+(function(){
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+  function showTab(tab) {
+    tabs.forEach(t => {
+      const panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (t === tab) {
+        t.setAttribute('aria-selected','true');
+        t.tabIndex = 0;
+        panel.classList.add('active');
+        panel.removeAttribute('hidden');
+        t.focus();
+      } else {
+        t.setAttribute('aria-selected','false');
+        t.tabIndex = -1;
+        panel.classList.remove('active');
+        panel.setAttribute('hidden','');
+      }
+    });
+  }
+
+  function findNextIndex(currentIndex, dir) {
+    const n = tabs.length;
+    return (currentIndex + dir + n) % n;
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', ()=> showTab(tab));
+    tab.addEventListener('keydown', (e) => {
+      const key = e.key;
+      if (key === 'ArrowRight' || key === 'Right') {
+        e.preventDefault();
+        const next = tabs[findNextIndex(index, +1)];
+        showTab(next);
+      } else if (key === 'ArrowLeft' || key === 'Left') {
+        e.preventDefault();
+        const prev = tabs[findNextIndex(index, -1)];
+        showTab(prev);
+      } else if (key === 'Home') {
+        e.preventDefault();
+        showTab(tabs[0]);
+      } else if (key === 'End') {
+        e.preventDefault();
+        showTab(tabs[tabs.length-1]);
+      } else if (key === 'Enter' || key === ' ' /* space */) {
+        e.preventDefault();
+        showTab(tab);
+      }
+    });
+  });
+
+  // 初期状態の tabindex
+  tabs.forEach(t => {
+    t.tabIndex = (t.getAttribute('aria-selected') === 'true') ? 0 : -1;
+  });
+})();
+</script>
 </body>
 </html>
