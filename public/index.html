@@ -1,23 +1,32 @@
 <!doctype html>
 <html lang="ja">
-<head>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <tmeta charset="utf-8" />
-  <itle>アクセシブルタブ</title>
-<link rel="stylesheet" href="./css/tab.css" type="text/css">
-</head>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <tmeta charset="utf-8" />
+        <itle>アクセシブルタブ</title>
+        <link rel="stylesheet" href="./css/tab.css" type="text/css">
+    </head>
 
-<body>
-  <div class="tabs" role="tablist" aria-label="tab">
-    <button id="tab-1" role="tab" aria-selected="true" aria-controls="panel-1">ファイル</button>
-    <button id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2">ホーム</button>
-    <button id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3">ヘルプ</button>
-  </div>
+    <body>
+        
+        <div class="tabs" role="tablist" aria-label="tab">
+            <button id="tab-1" role="tab" aria-selected="true" aria-controls="panel-1">ファイル</button>
+            <button id="tab-2" role="tab" aria-selected="false" aria-controls="panel-2">ホーム</button>
+            <button id="tab-3" role="tab" aria-selected="false" aria-controls="panel-3">ヘルプ</button>
+        </div>
 
-  <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" class="active">概要のテキスト。</section>
-  <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>使い方の説明。</section>
-  <section id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>サポート情報。</section>
+        <section id="panel-1" role="tabpanel" aria-labelledby="tab-1" class="active">
+            概要のテキスト。
+        </section>
 
-<script src="./js/tab.js"></script>
-</body>
-</html>
+        <section id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>
+            使い方の説明。
+        </section>
+        
+        <section id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>
+            サポート情報。
+        </section>
+
+        <script src="./js/tab.js"></script>
+    </body>
+</html>   
